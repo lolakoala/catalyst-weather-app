@@ -1,4 +1,4 @@
-import key from '../secretKey.js';
+import key from './secretKey.js';
 
 const getWeather = location => {
   return fetch(`http://api.openweathermap.org/data/2.5/forecast?q=${location}&APPID=${key}`)
@@ -9,7 +9,7 @@ const getWeather = location => {
         return res.json();
       }
     })
-    .catch(error => { throw error; });
+    .then(res => res.list);
 };
 
 export default getWeather;
