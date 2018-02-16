@@ -50,9 +50,7 @@ class App extends Component {
 
     this.setState({ currentLocation });
 
-    const allSearchedLocations = this.state.weather.map(cityAndWeather => {
-      return Object.keys(cityAndWeather).toString();
-    });
+    const allSearchedLocations = Object.keys(this.state.weather);
 
     if (!allSearchedLocations.includes(currentLocation)) {
       this.setWeather(currentLocation);
@@ -84,11 +82,11 @@ class App extends Component {
           <p id="location">Your current location is {currentLocation}.</p>
           <Controls setLocation={this.setLocation}/>
           {error.length ? <p>{error}</p> : null}
-          <DaysOfTheWeek currentDay={this.getDay()} />
-          <div>
+          <div id="graph-box">
             <TempIntervals />
             <div id="graph"></div>
           </div>
+          <DaysOfTheWeek currentDay={this.getDay()} />
         </div>
       );
     }

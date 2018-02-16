@@ -1,6 +1,8 @@
 import * as d3 from 'd3';
 
 export const initChart = weather => {
+  d3.select("svg").remove();
+
   var vis = d3.select("#graph")
     .append("svg");
 

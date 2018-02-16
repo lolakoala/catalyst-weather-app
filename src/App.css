@@ -28,8 +28,42 @@ body {
 
 #controls button,
 #controls input {
-  height: 50px;
-  width: 100px;
-  margin: 20px;
-  border-radius: 25px;
+  height: 25px;
+  width: 200px;
+  margin: auto;
+  margin-bottom: 20px;
+  border-radius: 5px;
+}
+
+#graph-box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* align-items: flex-end; */
+  margin: auto;
+  margin-left: 300px;
+}
+
+#graph {
+  margin-left: 20px;
+}
+
+#temps {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-bottom: 200px;
+}
+
+#days {
+  display: flex;
+  justify-content: space-between;
+  width: 500px;
+  margin: auto;
+  margin-top: -230px;
+  margin-left: 320px;
+}
+
+#days, #temps {
+  color: #5B616A;
 }
