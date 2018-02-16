@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import Controls from './components/Controls/Controls.js';
+import Graph from './components/Graph/Graph.js';
 import { getWeather, getWeatherWithCoord } from './helper.js';
 
 class App extends Component {
@@ -8,7 +9,7 @@ class App extends Component {
     super();
     this.state = {
       currentLocation: '',
-      weather: []
+      weather: {}
     };
     this.setLocation = this.setLocation.bind(this);
     this.setWeather = this.setWeather.bind(this);
@@ -16,7 +17,7 @@ class App extends Component {
 
   setWeather = location => {
     getWeather(location)
-      .then(res => this.setState({ weather: [...this.state.weather, { [location]: res }] }))
+      .then(res => this.setState({ weather: Object.assign({}, this.state.weather, { [location]: res }) }))
       .catch(error => { throw error; });
   }
 
@@ -27,7 +28,7 @@ class App extends Component {
           .then(res => {
             this.setState({
               currentLocation: res.city.name,
-              weather: [...this.state.weather, { [res.city]: res.list }]
+              weather: Object.assign({}, this.state.weather, { [res.city.name]: res.list })
             });
           })
           .catch(error => { throw error; });
@@ -49,17 +50,17 @@ class App extends Component {
     }
   }
 
-
   render() {
-    if (!this.state.currentLocation.length) {
+    const { currentLocation, weather } = this.state;
+    if (!currentLocation.length) {
       return (<p>Please wait while Simple Weather loads your current weather.</p>);
     } else {
       return (
         <div className="App">
           <p>Welcome to Simple Weather.</p>
-          <p>Your current location is {this.state.currentLocation}.</p>
+          <p>Your current location is {currentLocation}.</p>
           <Controls setLocation={this.setLocation}/>
-          <Graph />
+          <Graph weather={weather[currentLocation]}/>
         </div>
       );
     }
