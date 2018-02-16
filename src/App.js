@@ -24,9 +24,10 @@ class App extends Component {
     if ("geolocation" in navigator) {
       navigator.geolocation.getCurrentPosition(position => {
         getWeatherWithCoord(position)
+        // .then(res => console.log(res.city))
           .then(res => {
             this.setState({
-              currentLocation: res.city,
+              currentLocation: res.city.name,
               weather: [...this.state.weather, { [res.city]: res.list }]
             });
           })
@@ -35,8 +36,6 @@ class App extends Component {
     } else {
       this.setState({ currentLocation: 'not currently accessible' });
     }
-    // set state with current Location
-    // api call for current weather
   }
 
   setLocation = currentLocation => {
@@ -46,9 +45,10 @@ class App extends Component {
 
 
   render() {
+    // handle waiting on info to come back
     return (
       <div className="App">
-        <p>`Your current location is ${this.state.currentLocation}.`</p>
+        <p>`Your current location is {this.state.currentLocation}.`</p>
         <Controls setLocation={this.setLocation}/>
       </div>
     );

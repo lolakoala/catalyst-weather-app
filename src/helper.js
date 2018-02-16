@@ -1,8 +1,14 @@
 import key from './secretKey.js';
 
 export const getWeather = location => {
-  // handle if it is city or zip
-  return fetch(`http://api.openweathermap.org/data/2.5/forecast?q=${location}&APPID=${key}`)
+  let type;
+  if (parseInt(location)) {
+    type = 'zip';
+  } else {
+    type = 'q';
+  }
+
+  return fetch(`http://api.openweathermap.org/data/2.5/forecast?${type}=${location}&APPID=${key}`)
     .then(res => {
       if (res.status !== 200) {
         return 'Location not found. Please be sure to enter a valid city name or zipcode.';
