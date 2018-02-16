@@ -3,6 +3,8 @@ import './App.css';
 import Controls from './components/Controls/Controls.js';
 import { getWeather, getWeatherWithCoord } from './helper.js';
 import { initChart } from './d3helper.js';
+import DaysOfTheWeek from './components/DaysOfTheWeek/DaysOfTheWeek.js';
+import TempIntervals from './components/TempIntervals/TempIntervals.js';
 
 class App extends Component {
   constructor() {
@@ -53,7 +55,7 @@ class App extends Component {
   }
 
   render() {
-    const { currentLocation, weather } = this.state;
+    const { currentLocation } = this.state;
     if (!currentLocation.length) {
       return (<p>Please wait while Simple Weather loads your current weather.</p>);
     } else {
@@ -62,9 +64,9 @@ class App extends Component {
           <p>Welcome to Simple Weather.</p>
           <p>Your current location is {currentLocation}.</p>
           <Controls setLocation={this.setLocation}/>
+          <DaysOfTheWeek currentDay={this.getDay()} />
+          <TempIntervals />
           <div id="graph"></div>
-          {/* <svg id="visualisation" width="1000" height="500"></svg> */}
-          {/* <Graph weather={weather[currentLocation]}/> */}
         </div>
       );
     }
