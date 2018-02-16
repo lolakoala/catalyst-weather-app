@@ -1,18 +1,31 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
+import Controls from './components/Controls/Controls.js';
 
 class App extends Component {
+  constructor() {
+    super();
+    this.state = {
+      currentLocation: ''
+    };
+    this.setLocation = this.setLocation.bind(this);
+  }
+
+  componentDidMount = () => {
+    // set state with current Location
+    // api call for current weather
+  }
+
+  setLocation = currentLocation => {
+    this.setState({ currentLocation });
+    // api call for updated weather
+  }
+
+
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+        <Controls setLocation={this.setLocation}/>
       </div>
     );
   }
