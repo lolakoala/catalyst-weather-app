@@ -14,7 +14,7 @@ class Controls extends Component {
       <input type="text"
         value={this.state.input}
         onChange={(event) => this.setState({ input: event.target.value })}/>
-      <button>Change Location</button>
+      <button onClick={() => this.props.setLocation(this.state.input)}>Change Location</button>
     </div>);
   }
 }
@@ -22,5 +22,5 @@ class Controls extends Component {
 export default Controls;
 
 Controls.propTypes = {
-
+  setLocation: PropTypes.func
 };
