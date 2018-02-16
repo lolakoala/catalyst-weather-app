@@ -10,7 +10,7 @@ class Controls extends Component {
   }
 
   render() {
-    return (<div>
+    return (<div id="controls">
       <input type="text"
         value={this.state.input}
         onChange={(event) => this.setState({ input: event.target.value })}/>

@@ -11,7 +11,8 @@ class App extends Component {
     super();
     this.state = {
       currentLocation: '',
-      weather: {}
+      weather: {},
+      error: ''
     };
     this.setLocation = this.setLocation.bind(this);
     this.setWeather = this.setWeather.bind(this);
@@ -21,7 +22,7 @@ class App extends Component {
     getWeather(location)
       .then(res => this.setState({ weather: Object.assign({}, this.state.weather, { [location]: res }) }))
       .then(() => initChart(this.state.weather[this.state.currentLocation]))
-      .catch(error => { throw error; });
+      .catch(error => this.setState({ error: 'Location could not be found. Please enter a valid city name or zipcode.' }));
   }
 
   componentDidMount = () => {
@@ -43,6 +44,10 @@ class App extends Component {
   }
 
   setLocation = currentLocation => {
+    if (!currentLocation.length) {
+      this.setState({ currentLocation: 'not currently accessible', error: 'Please enter a valid city name or zipcode.' });
+    }
+
     this.setState({ currentLocation });
 
     const allSearchedLocations = this.state.weather.map(cityAndWeather => {
@@ -69,18 +74,21 @@ class App extends Component {
   }
 
   render() {
-    const { currentLocation } = this.state;
+    const { currentLocation, error } = this.state;
     if (!currentLocation.length) {
-      return (<p>Please wait while Simple Weather loads your current weather.</p>);
+      return (<p id="loading">Please wait while Simple Weather loads your current weather.</p>);
     } else {
       return (
         <div className="App">
-          <p>Welcome to Simple Weather.</p>
-          <p>Your current location is {currentLocation}.</p>
+          <p id="title">Welcome to Simple Weather.</p>
+          <p id="location">Your current location is {currentLocation}.</p>
           <Controls setLocation={this.setLocation}/>
+          {error.length ? <p>{error}</p> : null}
           <DaysOfTheWeek currentDay={this.getDay()} />
-          <TempIntervals />
-          <div id="graph"></div>
+          <div>
+            <TempIntervals />
+            <div id="graph"></div>
+          </div>
         </div>
       );
     }

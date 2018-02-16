@@ -6,7 +6,7 @@ const DaysOfTheWeek = ({ currentDay }) => {
   const startIndex = days.indexOf(currentDay);
   const currentFiveDays = days.slice(startIndex, startIndex + 5);
 
-  return (<div>
+  return (<div id="days">
     {currentFiveDays.map(day => {
       return <p key={`${Date.now()}${day}`}>{day}</p>;
     })}
