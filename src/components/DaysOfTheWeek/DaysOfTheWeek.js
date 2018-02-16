@@ -10,11 +10,6 @@ const DaysOfTheWeek = ({ currentDay }) => {
     {currentFiveDays.map(day => {
       return <p key={`${Date.now()}${day}`}>{day}</p>;
     })}
-    {/* <p>{days[startIndex]}</p>
-    <p>{days[startIndex + 1]}</p>
-    <p>{days[startIndex + 2]}</p>
-    <p>{days[startIndex + 3]}</p>
-    <p>{days[startIndex + 4]}</p> */}
   </div>);
 };
 
