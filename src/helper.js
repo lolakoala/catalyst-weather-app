@@ -1,6 +1,7 @@
 import key from './secretKey.js';
 
-const getWeather = location => {
+export const getWeather = location => {
+  // handle if it is city or zip
   return fetch(`http://api.openweathermap.org/data/2.5/forecast?q=${location}&APPID=${key}`)
     .then(res => {
       if (res.status !== 200) {
@@ -12,4 +13,15 @@ const getWeather = location => {
     .then(res => res.list);
 };
 
-export default getWeather;
+export const getWeatherWithCoord = locationObject => {
+  const lat = locationObject.coords.latitude;
+  const lon = locationObject.coords.longitude;
+  return fetch(`http://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&APPID=${key}`)
+    .then(res => {
+      if (res.status !== 200) {
+        return 'Your location is not currently accessible. Please enter a valid city name or zipcode to access a weather forecast.';
+      } else {
+        return res.json();
+      }
+    });
+};
