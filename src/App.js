@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import './App.css';
 import Controls from './components/Controls/Controls.js';
-import Graph from './components/Graph/Graph.js';
 import { getWeather, getWeatherWithCoord } from './helper.js';
+import { initChart } from './d3helper.js';
 
 class App extends Component {
   constructor() {
@@ -18,6 +18,7 @@ class App extends Component {
   setWeather = location => {
     getWeather(location)
       .then(res => this.setState({ weather: Object.assign({}, this.state.weather, { [location]: res }) }))
+      .then(() => initChart(this.state.weather[this.state.currentLocation]))
       .catch(error => { throw error; });
   }
 
@@ -31,6 +32,7 @@ class App extends Component {
               weather: Object.assign({}, this.state.weather, { [res.city.name]: res.list })
             });
           })
+          .then(() => initChart(this.state.weather[this.state.currentLocation]))
           .catch(error => { throw error; });
       });
     } else {
@@ -60,7 +62,9 @@ class App extends Component {
           <p>Welcome to Simple Weather.</p>
           <p>Your current location is {currentLocation}.</p>
           <Controls setLocation={this.setLocation}/>
-          <Graph weather={weather[currentLocation]}/>
+          <div id="graph"></div>
+          {/* <svg id="visualisation" width="1000" height="500"></svg> */}
+          {/* <Graph weather={weather[currentLocation]}/> */}
         </div>
       );
     }
