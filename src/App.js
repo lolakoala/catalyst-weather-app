@@ -11,8 +11,14 @@ class App extends Component {
     this.setLocation = this.setLocation.bind(this);
   }
 
+  componentDidMount = () => {
+    // set state with current Location
+    // api call for current weather
+  }
+
   setLocation = currentLocation => {
     this.setState({ currentLocation });
+    // api call for updated weather
   }
 
 
